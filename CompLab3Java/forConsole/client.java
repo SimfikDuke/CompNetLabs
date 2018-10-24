@@ -13,7 +13,7 @@ public class client {
     private static BufferedReader in;
     private static BufferedWriter out;
     private static String addrString = "localhost";
-    private static int serverPort = 25562;
+    private static int serverPort = 8888;
     
     public static int doCalc(int a, int b){
         int counter = 0;

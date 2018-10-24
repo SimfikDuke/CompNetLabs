@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package complab2java;
 
 import java.util.Date;
 
-/**
- *
- * @author duke
- */
 public class CompLab2Java {
     public static long t1time;
     public static long t3time;
@@ -19,9 +10,6 @@ public class CompLab2Java {
     public static int t2Count = 0;
     public static int t3Count = 0;
 
-    /**
-     * @param args the command line arguments
-     */ 
     public static void workWithOneThrow() throws InterruptedException {
         Thread t = new Thread(new Runnable(){
         public void run(){ tCount = doCalc(1000000,4000000,"ПОТОК");}});Date d11 = new Date();
@@ -81,6 +69,5 @@ public class CompLab2Java {
         workWithOneThrow();
         workWithThreeThrow();
         showStats();
-    }
-    
+    }   
 }

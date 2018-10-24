@@ -7,15 +7,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Date;
+import javax.swing.JTextPane;
 
-public class client {
-    private static Socket clientSocket;
-    private static BufferedReader in;
-    private static BufferedWriter out;
-    private static String addrString = "localhost";
-    private static int serverPort = 25562;
+public class clientGUI extends Thread{
+    private Socket clientSocket;
+    private BufferedReader in;
+    private BufferedWriter out;
+    private String addrString;
+    private int serverPort;
+    private JTextPane tPane;
     
-    public static int doCalc(int a, int b){
+    private int doCalc(int a, int b){
         int counter = 0;
         int j = 0;
         int[] q = new int[12];
@@ -27,12 +29,20 @@ public class client {
         return counter;
     }
     
-    public static void main(String[] args) {
-        System.out.println("Клиент успешно запущен.");
-        if(args.length > 0){
-            addrString = args[0];
-            if(args.length > 1) serverPort = Integer.valueOf(args[1]);
-        }
+    public void tAdd(String s){
+        tPane.setText(tPane.getText()+s+"\n");
+    }
+    
+    public clientGUI(String serverAddress, int serverPort, JTextPane tPane){
+        this.addrString = serverAddress;
+        this.serverPort = serverPort;
+        this.tPane = tPane;
+    }
+    
+    @Override
+    public void run() {
+        tAdd("Клиент запущен.");
+        
         try {
              try {
                  // init components
@@ -44,27 +54,30 @@ public class client {
                 Date date1 = new Date();
                 int id = Integer.valueOf(in.readLine());
                 int interval = Integer.valueOf(in.readLine());
-                 System.out.println("Клиент подключен к серверу. Идентификатор: "+id);
-                 System.out.println("Получен интервал от "+(id*interval+1)+
+                
+                 tAdd("Клиент подключен к серверу. Идентификатор: "+id);
+                 tAdd("Получен интервал от "+(id*interval+1)+
                          " до "+((1+id)*interval));
+                
                 int numbersCount = doCalc(id*interval+1, (1+id)*interval);
                 Date date2 = new Date();
                 out.write(String.valueOf(numbersCount)+"\n");
                 long calcTime = date2.getTime() - date1.getTime();
                 out.write(String.valueOf(calcTime)+"\n");
                 out.flush();
-                 System.out.println("Найдено "+numbersCount+" значений. Данные отправленны на сервер.");
-                 System.out.println("Общее время работы: "+
+                 tAdd("Найдено "+numbersCount+" значений. Данные отправленны на сервер.");
+                 tAdd("Общее время работы: "+
                          calcTime+" милисекунд.");
                 
                 // end of work with server
                 } finally {
-                    System.out.println("Клиент закрыт");
+                    tAdd("Клиент закрыт");
                     clientSocket.close();
                     in.close();
                 }
             }   catch(java.lang.NullPointerException e){
                 System.err.println("Не удалось подключиться к серверу.\nПерезапустите клиент!");
+                tAdd("Не удалось подключиться к серверу.\nПерезапустите клиент!");
             }   catch (IOException ex) {
                 System.err.println("Ошибка: "+ex);
         }
