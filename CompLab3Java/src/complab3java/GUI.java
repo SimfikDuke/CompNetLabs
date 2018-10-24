@@ -64,7 +64,6 @@ public class GUI extends javax.swing.JFrame {
         jTextPane2 = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
         setLocation(new java.awt.Point(100, 63));
 
         jInternalFrame1.setForeground(new java.awt.Color(204, 255, 204));

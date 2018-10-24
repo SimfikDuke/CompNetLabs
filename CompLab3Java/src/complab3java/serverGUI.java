@@ -36,8 +36,10 @@ public class serverGUI extends Thread{
     
     @Override
     public void run() {
-        System.out.println("Клиент"+this.id+" подключен ");
-        tAdd("Клиент"+this.id+" подключен ");
+        System.out.println("Клиент"+this.id+"("+
+                sock.getInetAddress()+":"+sock.getPort()+") подключен ");
+        tAdd("Клиент"+this.id+"("+
+                sock.getInetAddress()+":"+sock.getPort()+") подключен ");
         System.out.println("Клиент"+this.id+" получил интервал от "+
                 (this.id*this.interval+1)+" до "+((this.id+1)*this.interval));
         tAdd("Клиент"+this.id+" получил интервал от "+
