@@ -34,7 +34,12 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
-        
+        try{
+            jTextField1.setText(InetAddress.getLocalHost().getHostAddress());
+            jTextField3.setText(InetAddress.getLocalHost().getHostAddress());
+        }
+        catch(Exception r){
+        }
     }
 
     /**
